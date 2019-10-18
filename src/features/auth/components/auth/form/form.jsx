@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setLogin } from '../../../store/actions';
+import { login } from '../../../store/actions';
+/* import { setLogin } from '../../../store/actions'; */
+import { Redirect } from 'react-router-dom';
 class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -34,28 +36,35 @@ class LoginForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
+        console.log('Antes de ENVIAR DATOS validos en el  submit del login ', this.props)
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Valores del state :', this.state);
                 console.log('Valores recibidos del form: ', values);
-                this.props.history.push('home');
-                sessionStorage.setItem('token', 123456)
-                this.props.setLogin({
-                    token:sessionStorage.getItem('token'),
-                    user:this.state.user
-                })
+                /* this.props.history.push('home'); */
+                /* sessionStorage.setItem('token', 123456) */
+                this.props.login(this.state.user, this.state.password)
+                
             }
         });
     }
-    componentDidMount(){
-        sessionStorage.clear();
+    componentDidMount() {
+        /* sessionStorage.clear(); */
     }
 
 
     render() {
         const { getFieldDecorator } = this.props.form;
-        
+        //esto aplicar cuando tengamos dos diferentes tipos de roles
+        /* if (this.props.isAuthenticated && this.props.role == 2) {
+            return <Redirect to="/dashboard/driver" />;
+        } else if (this.props.isAuthenticated && this.props.role == 1) {
+            return <Redirect to="/dashboard/user" />;
+        } */
+        if (this.props.isAuthenticated) {
+            return <Redirect to="/home" />;
+        }
+
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Form.Item>
@@ -98,10 +107,11 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = state => ({
-    Auth: state.Auth
+    isAuthenticated: state.Auth.isAuthenticated
 });
 
-const mapDispatchToProps = { setLogin }
+/* const mapDispatchToProps = { setLogin } */
+const mapDispatchToProps = { login }
 
 const WrappedLoginForm = Form.create({ name: 'login_form' })(LoginForm);
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(WrappedLoginForm));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WrappedLoginForm));

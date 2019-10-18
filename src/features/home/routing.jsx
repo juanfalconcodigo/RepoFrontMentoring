@@ -1,7 +1,7 @@
 import React from 'react';
 import {Switch,Route,Redirect} from 'react-router-dom';
 import { HomeContainer } from './components';
-import { PrivateRoute } from '../../routes/private-router';
+import  PrivateRoute  from '../../routes/private-router';
 
 
 

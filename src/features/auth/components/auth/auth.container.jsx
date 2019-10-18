@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {  Button, Typography } from 'antd';
-import './auth.container.scss'
+import './auth.container.scss';
 import imagen from '../../../../assets/images/coworking.jpg';
 import WrappedLoginForm from './form/form';
+import {NavLink} from 'react-router-dom';
 
 const ButtonGroup = Button.Group;
 const { Title } = Typography;
@@ -64,7 +65,7 @@ class LoginContainer extends Component {
                                 </ButtonGroup>
 
                             </div>
-                            <div className="center mt-2"><a href="">No esta registrado ? Regístrese</a></div>
+                            <div className="center mt-2"><NavLink to="/register">No esta registrado ? Regístrese</NavLink></div>
 
                         </div>
 

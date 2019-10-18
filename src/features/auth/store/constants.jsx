@@ -1,5 +1,24 @@
-const SET_LOGIN = "SET_LOGIN";
+// Still have to implement register api, alert messages and store
+const SIGNUP_REQUEST = 'AUTH/SIGNUP_REQUEST';
+const SIGNUP_SUCCESS= 'AUTH/SIGNUP_SUCCESS';
+const SIGNUP_FAILURE= 'AUTH/SIGNUP_FAILURE';
+// Action types already in use by redux
+const USER_LOADING= 'USER_LOADING';
+const USER_LOADED= 'USER_LOADED';
+const AUTH_ERROR= 'AUTH_ERROR';
+const LOGIN_SUCCESS= 'LOGIN_SUCCESS';
+const LOGIN_FAILED= 'LOGIN_FAILED';
+const LOGOUT_SUCESS= 'LOGOUT_SUCCESS';
 
 export {
-    SET_LOGIN
+    SIGNUP_REQUEST,
+    SIGNUP_SUCCESS,
+    SIGNUP_FAILURE,
+    USER_LOADING,
+    USER_LOADED,
+    AUTH_ERROR,
+    LOGIN_SUCCESS,
+    LOGIN_FAILED,
+    LOGOUT_SUCESS
 }
+

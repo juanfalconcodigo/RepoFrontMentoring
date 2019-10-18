@@ -18,7 +18,7 @@ const getOrdersAll = () => dispatch => {
             /* console.log(res.data.data); */
             dispatch({
                 type: GET_DATA,
-                payload: res.data.data
+                payload: res.data
             });
         }).catch(err => {
             console.log(err)

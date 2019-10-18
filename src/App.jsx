@@ -6,7 +6,7 @@ import {store,saveState} from './store';
 
 class App extends Component{
     componentDidMount(){
-        window.addEventListener('unload',saveState);
+        /* window.addEventListener('unload',saveState); */
     }
     render(){
         return (
