@@ -15,8 +15,8 @@ class AuthService {
  */
 
 
-    getToken(url, config, body) {
-        return Service.post(url, config, body);
+    getToken(url, body, config) {
+        return Service.post(url, body, config);
     };
 
     logout(url, body, config) {

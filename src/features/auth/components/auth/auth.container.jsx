@@ -57,14 +57,14 @@ class LoginContainer extends Component {
                             <Title level={2} className="center">Iniciar sesión :</Title>
                             
                             <WrappedLoginForm/>
-                            <div className="social">
+                            {/* <div className="social">
                                 <ButtonGroup >
                                     <Button type="primary" icon="facebook" size="large" />
                                     <Button type="primary" icon="twitter" size="large" />
                                     <Button type="primary" icon="google" size="large" />
                                 </ButtonGroup>
 
-                            </div>
+                            </div> */}
                             <div className="center mt-2"><NavLink to="/register">No esta registrado ? Regístrese</NavLink></div>
 
                         </div>

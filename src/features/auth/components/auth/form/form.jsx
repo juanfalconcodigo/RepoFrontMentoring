@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../../../store/actions';
+import { login, rememberMe, rememberMeClose } from '../../../store/actions';
 /* import { setLogin } from '../../../store/actions'; */
 import { Redirect } from 'react-router-dom';
 class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: '',
-            password: '',
-            remember: false
+            user: localStorage.getItem('user'),
+            password: localStorage.getItem('password'),
+            remember: localStorage.getItem('user') && localStorage.getItem('password') ? true : false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleChecked = this.handleChecked.bind(this);
+        this.handleRemember = this.handleRemember.bind(this);
     }
 
     handleChangeInput(e) {
@@ -43,13 +44,25 @@ class LoginForm extends Component {
                 console.log('Valores recibidos del form: ', values);
                 /* this.props.history.push('home'); */
                 /* sessionStorage.setItem('token', 123456) */
-                this.props.login(this.state.user, this.state.password)
-                
+                this.props.login(this.state.user, this.state.password);
+                if (this.state.remember) {
+                    this.handleRemember(this.state.user, this.state.password);
+                } else {
+                    this.props.rememberMeClose();
+                }
+
+
             }
         });
     }
     componentDidMount() {
+        console.log(this.props);
+        console.log(this.state);
+
         /* sessionStorage.clear(); */
+    }
+    handleRemember(user, password) {
+        this.props.rememberMe(user, password);
     }
 
 
@@ -61,6 +74,7 @@ class LoginForm extends Component {
         } else if (this.props.isAuthenticated && this.props.role == 1) {
             return <Redirect to="/dashboard/user" />;
         } */
+        const { user, password } = this.state
         if (this.props.isAuthenticated) {
             return <Redirect to="/home" />;
         }
@@ -69,6 +83,7 @@ class LoginForm extends Component {
             <Form onSubmit={this.handleSubmit}>
                 <Form.Item>
                     {getFieldDecorator('user', {
+                        initialValue: user,
                         rules: [{ required: true, message: 'Porfavor verifique el usuario!!' }],
                     })(
                         <Input size="large"
@@ -79,6 +94,7 @@ class LoginForm extends Component {
                 </Form.Item>
                 <Form.Item>
                     {getFieldDecorator('password', {
+                        initialValue: password,
                         rules: [{ required: true, message: 'Porfavor verifique su contraseña!!' }],
                     })(
                         <Input.Password size="large"
@@ -111,7 +127,7 @@ const mapStateToProps = state => ({
 });
 
 /* const mapDispatchToProps = { setLogin } */
-const mapDispatchToProps = { login }
+const mapDispatchToProps = { login, rememberMe, rememberMeClose }
 
 const WrappedLoginForm = Form.create({ name: 'login_form' })(LoginForm);
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WrappedLoginForm));

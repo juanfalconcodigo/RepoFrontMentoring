@@ -11,6 +11,8 @@ const initialState = {
     isAuthenticated: null,
     username: null,
     isLoading: false,
+    user:localStorage.getItem('user'),
+    password:localStorage.getItem('password')
 }
 
 export {

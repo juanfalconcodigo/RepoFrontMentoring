@@ -10,24 +10,51 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGIN_FAILED,
-    LOGOUT_SUCESS
+    LOGOUT_SUCESS,
+    REMEMBER_ME,
+    REMEMBER_ME_CLOSE
 } from "./constants";
 
 function AuthReducer(state = initialState, action) {
     switch (action.type) {
         case LOGIN_SUCCESS:
-                localStorage.setItem('token', action.payload.token);
-                return Object.assign({}, state, {
-                    token:action.payload.token,
-                    isAuthenticated: true,             
-                    username: action.payload.token
-                });
-               
+            localStorage.setItem('token', action.payload.token);
+            return Object.assign({}, state, {
+                token: action.payload.token,
+                isAuthenticated: true,
+                username: action.payload.token
+            });
+        case REMEMBER_ME:
+            localStorage.setItem('user', action.payload.user);
+            localStorage.setItem('password', action.payload.user);
+            return {
+                ...state,
+                user: action.payload.user,
+                password: action.payload.user
+            }
+        case REMEMBER_ME_CLOSE:
+            localStorage.removeItem('user');
+            localStorage.removeItem('password');
+            return {
+                ...state,
+                user: null,
+                password: null
+            }
+        case LOGOUT_SUCESS:
+            localStorage.removeItem('token');
 
-                
-        
-        default:return state;
-                        
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                isLoading: false
+            }
+
+
+
+
+        default: return state;
+
     }
 }
 

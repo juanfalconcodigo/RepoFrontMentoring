@@ -85,8 +85,8 @@ class RegistrationForm extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                /* this.createUser(); */
-                const config = {
+                this.createUser();
+               /*  const config = {
                     headers: {
                         'content-Type': 'application/json'
                     }
@@ -99,7 +99,7 @@ class RegistrationForm extends Component {
                     .then(res => {
                         console.log(res);
                         console.log(res.data);
-                    })
+                    }) */
                 console.log('Validaciones de antd: ', values);
                 console.log('Valores a enviar', this.state.data);
 
